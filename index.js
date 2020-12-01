@@ -32,7 +32,7 @@ inquirer.prompt([
         type: "list",
         message: "Choose your license",
         name: "license",
-        choices: ["MIT, Apache License 2.0, General Public License V3.0, Eclipse Public License 2.0, Boost Software License 1.0"],
+        choices: ["MIT", "Apache", "General Public License", "Eclipse Public License", "Boost Software License", "none"],
         default: "MIT License"
     },
     {
@@ -56,4 +56,35 @@ inquirer.prompt([
     license,
     githubName,
     userEmail
-}))
+})=>{
+    //template
+    const template = `# ${title}
+    * [Installation](#dependency)
+    * [Instructions](#usage)
+    * [Contributors](#contributors)
+    * [License](#license)
+    # Installation
+    ${dependency}
+    ## Contributors
+    ${contributors}
+    ### Instructions
+    ${instructions}
+    ## License
+    ${license}
+    
+    #Contact
+    * Github :${githubName}
+    * E-mail :${userEmail}`;
+    //function to create readme
+    createNewFile(title,template);
+}
+);
+//creating function 
+function createNewFile(filename,data){
+    fs.writeFile(`./${filename.toLowerCase().split(' ').join('')}.md,`,data,(err)=>{
+        if(err){
+            console.log(err)
+        }
+        console.log("readme complete!");
+    })
+}
